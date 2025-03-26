@@ -5,6 +5,7 @@ import { useAuth } from './../context/AuthContext';
 import ImageGallery from './ImageGallery';
 import { motion } from 'framer-motion';
 import { CalendarDays, MapPin, Clock, IndianRupee, Video, ImageIcon } from 'lucide-react';
+import axiosInstance from '../admin/axiosInstance';
 
 const PackageDetails = () => {
   const { id } = useParams();
@@ -16,14 +17,19 @@ const PackageDetails = () => {
 
   useEffect(() => {
     const fetchPackageDetails = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5001/api/packages/${id}`);
-        setPackageDetails(response.data);
-      } catch (err) {
-        setError('Failed to fetch package details');
-      } finally {
-        setLoading(false);
-      }
+        try {
+          const response = await axiosInstance.get(`/api/packages/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          });
+          setPackageDetails(response.data);
+        } catch (err) {
+          setError('Failed to fetch package details');
+        } finally {
+          setLoading(false);
+        }
+      
     };
 
     fetchPackageDetails();
@@ -36,7 +42,7 @@ const PackageDetails = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:5001/api/packages/${id}`, {
+      await axiosInstance.delete(`/api/packages/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -61,7 +67,7 @@ const PackageDetails = () => {
 
   const handleAddImage = async (newImageUrl) => {
     try {
-      const response = await axios.post(`http://localhost:5001/api/packages/${id}/images`, 
+      const response = await axiosInstance.post(`/api/packages/${id}/images`, 
         { imageUrl: newImageUrl },
         {
           headers: {
@@ -78,7 +84,7 @@ const PackageDetails = () => {
 
   const handleRemoveImage = async (index) => {
     try {
-      const response = await axios.delete(`http://localhost:5001/api/packages/${id}/images/${index}`, {
+      const response = await axiosInstance.delete(`/api/packages/${id}/images/${index}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

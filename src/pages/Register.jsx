@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
 import axios from "axios"
+import axiosInstance from "../admin/axiosInstance"
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -62,7 +63,7 @@ const Signup = () => {
 
     try {
       // Step 1: Send registration request to initiate OTP
-      const response = await axios.post("http://localhost:5001/api/auth/register", credentials)
+      const response = await axiosInstance.post("/api/auth/register", credentials)
 
       // Step 2: If successful, navigate to OTP verification page with email
       if (response.data.message === "OTP sent to your email") {

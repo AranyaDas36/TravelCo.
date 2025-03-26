@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaPhoneAlt, FaMapMarkerAlt, FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import axiosInstance from '../admin/axiosInstance';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -18,13 +19,11 @@ const ContactSection = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch('http://localhost:5001/api/contact/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      
+    try { 
+      const response = await axiosInstance.post('/api/contact/submit', formData, {
+        headers: { 'Content-Type': 'application/json' }
+    });
+    
 
       if (response.ok) {
         setResponseMessage('Your message has been sent successfully!');

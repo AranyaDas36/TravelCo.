@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { useAuth } from "./../context/AuthContext"
 import axios from "axios"
 import { Eye, EyeOff, Apple, Twitter } from "lucide-react"
+import axiosInstance from "../admin/axiosInstance"
 
 const Login = () => {
   // State management
@@ -34,7 +35,7 @@ const Login = () => {
       if (token) {
         try {
           // Verify token with backend
-          const response = await axios.get("http://localhost:5001/api/auth/verify-token", {
+          const response = await axiosInstance.get("/api/auth/verify-token", {
             headers: { Authorization: `Bearer ${token}` },
           })
 
@@ -98,7 +99,7 @@ const Login = () => {
 
     try {
       // Send login request
-      const response = await axios.post("http://localhost:5001/api/auth/login", credentials)
+      const response = await axiosInstance.post("/api/auth/login", credentials)
 
       // Check if token exists in response
       if (response.data.token) {

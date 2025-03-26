@@ -22,6 +22,7 @@ import {
 } from "lucide-react"
 import axios from "axios"
 import { format } from "date-fns"
+import axiosInstance from "../admin/axiosInstance"
 
 const CheckoutPage = () => {
   const [packageDetails, setPackageDetails] = useState(null)
@@ -52,7 +53,7 @@ const CheckoutPage = () => {
     const fetchPackageDetails = async () => {
       try {
         setLoading(true)
-        const response = await axios.get(`http://localhost:5001/api/packages/${id}`)
+        const response = await axiosInstance.get(`/api/packages/${id}`)
         setPackageDetails(response.data)
         setError(null)
       } catch (error) {
@@ -85,7 +86,7 @@ const CheckoutPage = () => {
   const calculateTotalPrice = () => {
     if (!packageDetails) return 0
 
-    const basePrice = Math.round(packageDetails.price * 75)
+    const basePrice = Math.round(packageDetails.price)
     const cancellationCharge = personalDetails.freeCancellation ? 299 : 0
     const gst = Math.round(basePrice * 0.05) // 5% GST
 
@@ -199,7 +200,7 @@ const CheckoutPage = () => {
     return null
   }
 
-  const basePrice = Math.round(packageDetails.price * 75)
+  const basePrice = Math.round(packageDetails.price)
   const cancellationCharge = personalDetails.freeCancellation ? 299 : 0
   const gst = Math.round(basePrice * 0.05) // 5% GST
   const totalPrice = basePrice + cancellationCharge + gst

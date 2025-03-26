@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import axiosInstance from '../admin/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
@@ -14,12 +14,11 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Ensure loading logic is clear
   const navigate = useNavigate();
 
-  // Set up axios interceptor for adding token to requests
   useEffect(() => {
-    const interceptor = axios.interceptors.request.use(
+    const interceptor = axiosInstance.interceptors.request.use(
       (config) => {
         const token = localStorage.getItem('authToken');
         if (token) {
@@ -30,12 +29,12 @@ export const AuthProvider = ({ children }) => {
       (error) => Promise.reject(error)
     );
 
-    return () => axios.interceptors.request.eject(interceptor);
+    return () => axiosInstance.interceptors.request.eject(interceptor);
   }, []);
 
-  const verifyToken = async (token) => {
+  const verifyToken = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/api/auth/me');
+      const response = await axiosInstance.get('/api/auth/me');
       return response.data.user;
     } catch (error) {
       console.error('Token verification failed:', error);
@@ -50,8 +49,8 @@ export const AuthProvider = ({ children }) => {
 
       if (storedToken) {
         try {
-          const verifiedUser = await verifyToken(storedToken);
-          
+          const verifiedUser = await verifyToken();
+
           if (verifiedUser) {
             setUser(verifiedUser);
           } else if (storedUser) {
@@ -62,10 +61,10 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
           logout();
         } finally {
-          setLoading(false);
+          setLoading(false); // Loading finished only after auth check
         }
       } else {
-        setLoading(false);
+        setLoading(false); // Even without a token, finish loading
       }
     };
 
@@ -81,10 +80,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5001/api/auth/login', { 
-        email, 
-        password 
-      });
+      const response = await axiosInstance.post('/api/auth/login', { email, password });
 
       if (!response.data.token) {
         throw new Error('No authentication token received');
@@ -92,7 +88,7 @@ export const AuthProvider = ({ children }) => {
 
       localStorage.setItem('authToken', response.data.token);
       localStorage.setItem('userData', JSON.stringify(response.data.user));
-      
+
       setUser(response.data.user);
       navigate('/');
       
@@ -100,18 +96,13 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       localStorage.removeItem('authToken');
       localStorage.removeItem('userData');
-      
-      throw new Error(
-        error.response?.data?.message || 
-        error.message || 
-        'Login failed. Please try again.'
-      );
+      throw new Error(error.response?.data?.message || error.message || 'Login failed.');
     }
   };
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:5001/api/auth/register', userData);
+      const response = await axiosInstance.post('/api/auth/register', userData);
 
       if (!response.data.token) {
         throw new Error('No authentication token received');
@@ -119,7 +110,7 @@ export const AuthProvider = ({ children }) => {
 
       localStorage.setItem('authToken', response.data.token);
       localStorage.setItem('userData', JSON.stringify(response.data.user));
-      
+
       setUser(response.data.user);
       navigate('/');
       
@@ -127,12 +118,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       localStorage.removeItem('authToken');
       localStorage.removeItem('userData');
-      
-      throw new Error(
-        error.response?.data?.message || 
-        error.message || 
-        'Registration failed. Please try again.'
-      );
+      throw new Error(error.response?.data?.message || error.message || 'Registration failed.');
     }
   };
 
@@ -149,8 +135,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {children}
+      {loading ? <div>Loading...</div> : children}  {/* Prevents redirect until checkAuthStatus completes */}
     </AuthContext.Provider>
   );
 };
-

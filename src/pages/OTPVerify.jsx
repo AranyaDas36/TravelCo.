@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { useLocation, useNavigate } from "react-router-dom"
+import axiosInstance from "../admin/axiosInstance"
 
 const OTPVerify = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""])
@@ -67,7 +68,7 @@ const OTPVerify = () => {
     setError("")
 
     try {
-      await axios.post("http://localhost:5001/api/auth/register", { email })
+      await axiosInstance.post("/api/auth/register", { email })
       setTimer(600) // Reset timer to 10 minutes
       setResendDisabled(true)
       alert("New OTP has been sent to your email")
@@ -92,7 +93,7 @@ const OTPVerify = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5001/api/auth/verify-otp", {
+      const response = await axiosInstance.post("/api/auth/verify-otp", {
         email,
         otp: otpString,
       })

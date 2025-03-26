@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PackageCard from './../components/PackageCard';
 import { useAuth } from './../context/AuthContext';
 import axios from 'axios';
+import axiosInstance from '../admin/axiosInstance';
 
 const Packages = () => {
   const { user } = useAuth();
@@ -12,7 +13,7 @@ const Packages = () => {
 
   const fetchPackages = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/api/packages');
+      const response = await axiosInstance.get('/api/packages');
       setPackages(response.data);
       setLoading(false);
     } catch (error) {
@@ -32,7 +33,7 @@ const Packages = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:5001/api/packages/${id}`, {
+      await axiosInstance.delete(`/api/packages/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

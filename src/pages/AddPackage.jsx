@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './../context/AuthContext';
+import axiosInstance from '../admin/axiosInstance';
+
 
 const AddPackage = () => {
   const [packageData, setPackageData] = useState({
@@ -34,7 +36,7 @@ const AddPackage = () => {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:5001/api/packages', packageData, {
+      await axiosInstance.post('/api/packages', packageData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { format } from "date-fns"
+import axiosInstance from "../admin/axiosInstance"
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([])
@@ -40,7 +41,7 @@ const BlogPage = () => {
   const fetchBlogs = async () => {
     try {
       setIsLoading(true)
-      const response = await axios.get("http://localhost:5001/api/blogs")
+      const response = await axiosInstance.get("/api/blogs")
       setBlogs(response.data.blogs)
       setError("")
     } catch (error) {
@@ -98,7 +99,7 @@ const BlogPage = () => {
   
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5001/api/blogs/${id}`, {
+      await axiosInstance.delete(`/api/blogs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
   

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from './../context/AuthContext';
+import axiosInstance from '../admin/axiosInstance';
 
 const UpdatePackage = () => {
   const { id } = useParams();
@@ -20,7 +21,7 @@ const UpdatePackage = () => {
   useEffect(() => {
     const fetchPackage = async () => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/packages/${id}`);
+        const response = await axiosInstance.get(`/api/packages/${id}`);
         setPackageData(response.data);
         setLoading(false);
       } catch (error) {
@@ -48,7 +49,7 @@ const UpdatePackage = () => {
     }
 
     try {
-      await axios.put(`http://localhost:5001/api/packages/${id}`, packageData, {
+      await axiosInstance.put(`/api/packages/${id}`, packageData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -142,7 +143,7 @@ const UpdatePackage = () => {
           />
         </div>
 
-        <button
+        <button 
           type="submit"
           className="bg-blue-500 text-white py-2 px-4 rounded"
         >
