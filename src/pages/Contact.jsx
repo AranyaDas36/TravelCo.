@@ -20,7 +20,7 @@ const ContactSection = () => {
     e.preventDefault();
 
     try { 
-      const response = await axiosInstance.post('/api/contact/submit', formData, {
+      const response = await axiosInstance.post('/api/contact', formData, {
         headers: { 'Content-Type': 'application/json' }
     });
     
