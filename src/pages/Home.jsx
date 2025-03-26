@@ -161,7 +161,7 @@ const Home = () => {
                     <div className="p-4">
                       <h3 className="text-lg font-semibold">{pkg.title}</h3>
                       <p className="text-gray-700 mt-2">{pkg.shortDescription}</p>
-                      <span className="block mt-4 text-lg font-bold">${pkg.price}</span>
+                      <span className="block mt-4 text-lg font-bold">Rs{pkg.price}</span>
                     </div>
                   </motion.div>
                 </Link>
