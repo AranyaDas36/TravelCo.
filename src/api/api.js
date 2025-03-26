@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5001/api';  // Change to your backend URL
+const API_URL = import.meta.env.VITE_BACKEND_URL;  // Vite-specific syntax
 
 const api = axios.create({
   baseURL: API_URL,
@@ -16,7 +16,7 @@ export const createPackage = async (packageData) => {
   }
 };
 
-export const getPackages = () => api.get('/packages');
+export const getPackages = () => api.get('/api/packages');
 export const getPackageDetails = (id) => api.get(`/packages/${id}`);
 export const postBooking = (data) => api.post('/booking', data);
 export const postLogin = (data) => api.post('/auth/login', data);

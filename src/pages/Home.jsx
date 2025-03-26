@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getPackages } from './../api/api'; // Adjust the import path if necessary
 import { Link } from 'react-router-dom'; // Import Link component
 import { motion } from 'framer-motion'; // Import framer-motion for animations
 import './../App.css'; // This imports the styles from App.css
 import Contact from './Contact'
+import axiosInstance from '../admin/axiosInstance';
+import { getPackages } from './../api/api'
+
 
 const Home = () => {
   const [packages, setPackages] = useState([]);
+  
 
   useEffect(() => {
     const fetchPackages = async () => {
