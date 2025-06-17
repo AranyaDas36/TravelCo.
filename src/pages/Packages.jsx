@@ -66,7 +66,7 @@ const Packages = () => {
           </Link>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
           {packages.map(pkg => (
             <div key={pkg._id} className="relative">
               <Link to={`/packages/${pkg._id}`}>
@@ -80,13 +80,13 @@ const Packages = () => {
                 />
               </Link>
               {user && user.role === 'admin' && (
-                <div className="absolute top-2 right-2 flex space-x-2">
+                <div className="absolute top-2 right-2 flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 z-10">
                   <Link to={`/update-package/${pkg._id}`}>
-                    <button className="bg-blue-500 text-white p-2 rounded">Edit</button>
+                    <button className="bg-blue-500 text-white p-2 rounded text-xs sm:text-sm">Edit</button>
                   </Link>
                   <button 
                     onClick={() => handleDelete(pkg._id)} 
-                    className="bg-red-500 text-white p-2 rounded"
+                    className="bg-red-500 text-white p-2 rounded text-xs sm:text-sm"
                   >
                     Delete
                   </button>

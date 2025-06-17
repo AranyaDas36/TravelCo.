@@ -59,16 +59,16 @@ const Home = () => {
     //   </section>
     <div className="bg-gray-100 ">
     {/* Hero Section */}
-    <section className="relative flex items-center justify-between min-h-[700px] bg-white text-black px-4 md:px-8 py-14">
+    <section className="relative flex flex-col md:flex-row items-center justify-between min-h-[500px] md:min-h-[700px] bg-white text-black px-4 md:px-8 py-10 md:py-14">
       {/* Left Half: Text Content */}
-      <div className="w-full md:w-1/2 p-4 md:p-6 ml-8">
+      <div className="w-full md:w-1/2 p-4 md:p-6 md:ml-8 mb-8 md:mb-0">
         <div className="relative z-10">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold leading-tight text-center md:text-left">
               Explore Your Next{" "}
             <div className="relative inline-block">
               Adventure
               <svg
-                className="absolute -top-8 right-0 w-16 h-16 text-blue-500"
+                className="absolute -top-8 right-0 w-12 h-12 md:w-16 md:h-16 text-blue-500"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -83,14 +83,14 @@ const Home = () => {
               </svg>
             </div>
           </h1>
-          <div className="w-24 h-1 bg-orange-500 my-4"></div>
-          <p className="mt-4 text-gray-600 text-lg max-w-3xl py-2">
+          <div className="w-16 md:w-24 h-1 bg-orange-500 my-4 mx-auto md:mx-0"></div>
+          <p className="mt-4 text-gray-600 text-base sm:text-lg max-w-3xl py-2 text-center md:text-left">
             Discover amazing travel packages and create memories that last a
             lifetime. Choose from our carefully curated travel options!
           </p>
           <button
             onClick={() => document.getElementById("packages").scrollIntoView({ behavior: "smooth" })}
-            className="mt-6 px-8 py-3 bg-gray-900 hover:bg-black text-white font-medium rounded-full cursor-pointer"
+            className="mt-6 px-6 md:px-8 py-3 bg-gray-900 hover:bg-black text-white font-medium rounded-full cursor-pointer w-full md:w-auto"
           >
             Book Now
           </button>
@@ -98,11 +98,11 @@ const Home = () => {
       </div>
 
       {/* Right Half: Phone Mockup */}
-      <div className="w-full md:w-1/2 flex justify-end items-center pr-12">
+      <div className="w-full md:w-1/2 flex justify-center md:justify-end items-center pr-0 md:pr-12 mb-8 md:mb-0">
   <img
     src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="Travel"
-    className="h-[calc(100vh-12rem)] object-cover rounded-lg shadow-lg"
+    className="w-full max-w-xs sm:max-w-sm md:max-w-md h-64 sm:h-80 md:h-[calc(100vh-12rem)] object-cover rounded-lg shadow-lg"
   />
 </div>
 
@@ -114,54 +114,54 @@ const Home = () => {
       {/* Popular Packages Section */}
       <section
         id="packages"
-        className="py-12 min-h-screen relative overflow-hidden"
+        className="py-12 min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50"
       >
-        {/* Cloud or smoke gradient overlay */}
-        <div className="absolute inset-0"></div>
+        {/* Background pattern overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-100/20 to-purple-100/20"></div>
 
         <div className="container mx-auto px-4 py-10 relative z-10">
-          <h2 className="text-center text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
+          <h2 className="text-center text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             <motion.div
-              initial={{ opacity: 0, y: -50 }}  // Initial state: invisible and slightly above
-              animate={{ opacity: 1, y: 0 }}    // Final state: fully visible and in place
-              transition={{ duration: 1 }}      // Duration of the animation
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
             >
               Popular Travel Packages
             </motion.div>
           </h2>
 
           {/* Horizontal Scroll Container */}
-          <div className="overflow-hidden relative py-24">
+          <div className="overflow-x-auto relative py-12 md:py-24">
             <motion.div
-              className="flex gap-6"
-              animate={{ x: ['0%', '-80%'] }} // This will loop the scroll horizontally
+              className="flex gap-4 sm:gap-6"
+              animate={{ x: ['0%', '-80%'] }}
               transition={{
                 repeat: Infinity,
                 repeatType: 'loop',
-                duration: 45, // Adjust the duration to control scroll speed
+                duration: 45,
                 ease: 'linear',
               }}
             >
               {/* Duplicate the packages to ensure continuous scrolling */}
               {[...packages.slice(0, 5), ...packages.slice(0, 5)].map((pkg, index) => (
                 <Link
-                  key={`${pkg._id}-${index}`}  // Create a unique key by combining ID and index
+                  key={`${pkg._id}-${index}`}
                   to={`/packages/${pkg._id}`}
-                  className="relative group transform transition-all duration-500"
+                  className="relative group transform transition-all duration-500 min-w-[80vw] sm:min-w-[40vw] md:min-w-[25vw] lg:min-w-[20vw]"
                 >
                   <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    className="package-card w-[calc(100vw/4)] border border-gray-300 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-white"
+                    whileHover={{ scale: 1.05 }}
+                    className="package-card border border-gray-200 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white backdrop-blur-sm"
                   >
                     <img
                       src={pkg.imageUrl}
                       alt={pkg.title}
-                      className="w-full h-64 object-cover rounded-t-xl"
+                      className="w-full h-48 sm:h-64 object-cover rounded-t-xl"
                     />
                     <div className="p-4">
-                      <h3 className="text-lg font-semibold">{pkg.title}</h3>
-                      <p className="text-gray-700 mt-2">{pkg.shortDescription}</p>
-                      <span className="block mt-4 text-lg font-bold">Rs{pkg.price}</span>
+                      <h3 className="text-lg font-semibold text-gray-800">{pkg.title}</h3>
+                      <p className="text-gray-600 mt-2 text-sm">{pkg.shortDescription}</p>
+                      <span className="block mt-4 text-lg font-bold text-blue-600">Rs{pkg.price}</span>
                     </div>
                   </motion.div>
                 </Link>

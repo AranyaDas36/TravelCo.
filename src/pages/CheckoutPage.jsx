@@ -238,57 +238,57 @@ const CheckoutPage = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-center mb-8">
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">
           {activeStep === 1 ? "Complete Your Booking" : "Review & Payment"}
         </h1>
 
         {activeStep === 1 ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
             {/* Left Section - Package Details and Form */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
-                <div className="relative h-48 overflow-hidden">
+              <div className="bg-white rounded-lg shadow-md overflow-hidden mb-6 sm:mb-8">
+                <div className="relative h-40 sm:h-48 overflow-hidden">
                   <img
                     src={packageDetails.imageUrl || "/placeholder.svg?height=300&width=800"}
                     alt={packageDetails.title}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                    <div className="p-6 text-white">
-                      <h2 className="text-2xl font-bold">{packageDetails.title}</h2>
+                    <div className="p-4 sm:p-6 text-white">
+                      <h2 className="text-lg sm:text-2xl font-bold">{packageDetails.title}</h2>
                       <div className="flex items-center mt-2">
                         <MapPin className="h-4 w-4 mr-1" />
-                        <span className="text-sm">{packageDetails.location || "Destination"}</span>
+                        <span className="text-xs sm:text-sm">{packageDetails.location || "Destination"}</span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-gray-700 mb-4">{packageDetails.description}</p>
+                <div className="p-4 sm:p-6">
+                  <p className="text-gray-700 mb-4 text-sm sm:text-base">{packageDetails.description}</p>
 
-                  <div className="flex flex-wrap gap-4 mb-6">
-                    <div className="bg-blue-50 rounded-lg p-3 flex items-center">
-                      <Calendar className="h-5 w-5 text-blue-600 mr-2" />
+                  <div className="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="bg-blue-50 rounded-lg p-2 sm:p-3 flex items-center">
+                      <Calendar className="h-4 sm:h-5 w-4 sm:w-5 text-blue-600 mr-2" />
                       <div>
                         <p className="text-xs text-gray-500">Duration</p>
-                        <p className="font-medium">{packageDetails.duration || "3 Days"}</p>
+                        <p className="font-medium text-xs sm:text-base">{packageDetails.duration || "3 Days"}</p>
                       </div>
                     </div>
 
-                    <div className="bg-green-50 rounded-lg p-3 flex items-center">
-                      <IndianRupee className="h-5 w-5 text-green-600 mr-2" />
+                    <div className="bg-green-50 rounded-lg p-2 sm:p-3 flex items-center">
+                      <IndianRupee className="h-4 sm:h-5 w-4 sm:w-5 text-green-600 mr-2" />
                       <div>
                         <p className="text-xs text-gray-500">Price per person</p>
-                        <p className="font-medium">₹{basePrice}</p>
+                        <p className="font-medium text-xs sm:text-base">₹{basePrice}</p>
                       </div>
                     </div>
 
-                    <div className="bg-purple-50 rounded-lg p-3 flex items-center">
-                      <Shield className="h-5 w-5 text-purple-600 mr-2" />
+                    <div className="bg-purple-50 rounded-lg p-2 sm:p-3 flex items-center">
+                      <Shield className="h-4 sm:h-5 w-4 sm:w-5 text-purple-600 mr-2" />
                       <div>
                         <p className="text-xs text-gray-500">Cancellation</p>
-                        <p className="font-medium">Available</p>
+                        <p className="font-medium text-xs sm:text-base">Available</p>
                       </div>
                     </div>
                   </div>
@@ -296,18 +296,18 @@ const CheckoutPage = () => {
               </div>
 
               {/* Personal Details Form */}
-              <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-                <h2 className="text-xl font-bold mb-6 pb-2 border-b">Personal Details</h2>
+              <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6 sm:mb-8">
+                <h2 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 pb-2 border-b">Personal Details</h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <div>
-                    <label className="block text-gray-700 font-medium mb-2">Full Name</label>
+                    <label className="block text-gray-700 font-medium mb-1 sm:mb-2 text-xs sm:text-base">Full Name</label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <User className="h-5 w-5 text-gray-400" />
+                        <User className="h-4 sm:h-5 w-4 sm:w-5 text-gray-400" />
                       </div>
                       <input
-                        className={`w-full pl-10 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                        className={`w-full pl-8 sm:pl-10 p-2 sm:p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
                           formErrors.name ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="Name..."
@@ -316,17 +316,17 @@ const CheckoutPage = () => {
                         onChange={handleInputChange}
                       />
                     </div>
-                    {formErrors.name && <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>}
+                    {formErrors.name && <p className="text-red-500 text-xs sm:text-sm mt-1">{formErrors.name}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-gray-700 font-medium mb-2">Phone Number</label>
+                    <label className="block text-gray-700 font-medium mb-1 sm:mb-2 text-xs sm:text-base">Phone Number</label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Phone className="h-5 w-5 text-gray-400" />
+                        <Phone className="h-4 sm:h-5 w-4 sm:w-5 text-gray-400" />
                       </div>
                       <input
-                        className={`w-full pl-10 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                        className={`w-full pl-8 sm:pl-10 p-2 sm:p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
                           formErrors.phone ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="xxxxxxxxxx"
@@ -335,17 +335,17 @@ const CheckoutPage = () => {
                         onChange={handleInputChange}
                       />
                     </div>
-                    {formErrors.phone && <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>}
+                    {formErrors.phone && <p className="text-red-500 text-xs sm:text-sm mt-1">{formErrors.phone}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-gray-700 font-medium mb-2">Email Address</label>
+                    <label className="block text-gray-700 font-medium mb-1 sm:mb-2 text-xs sm:text-base">Email Address</label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Mail className="h-5 w-5 text-gray-400" />
+                        <Mail className="h-4 sm:h-5 w-4 sm:w-5 text-gray-400" />
                       </div>
                       <input
-                        className={`w-full pl-10 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                        className={`w-full pl-8 sm:pl-10 p-2 sm:p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
                           formErrors.email ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="email@example.com"
@@ -355,26 +355,26 @@ const CheckoutPage = () => {
                         onChange={handleInputChange}
                       />
                     </div>
-                    {formErrors.email && <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>}
+                    {formErrors.email && <p className="text-red-500 text-xs sm:text-sm mt-1">{formErrors.email}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-gray-700 font-medium mb-2">Address</label>
+                    <label className="block text-gray-700 font-medium mb-1 sm:mb-2 text-xs sm:text-base">Address</label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Home className="h-5 w-5 text-gray-400" />
+                        <Home className="h-4 sm:h-5 w-4 sm:w-5 text-gray-400" />
                       </div>
                       <input
-                        className={`w-full pl-10 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                        className={`w-full pl-8 sm:pl-10 p-2 sm:p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
                           formErrors.address ? "border-red-500" : "border-gray-300"
                         }`}
-                        placeholder="123 Main St, City"
+                        placeholder="Address..."
                         name="address"
                         value={personalDetails.address}
                         onChange={handleInputChange}
                       />
                     </div>
-                    {formErrors.address && <p className="text-red-500 text-sm mt-1">{formErrors.address}</p>}
+                    {formErrors.address && <p className="text-red-500 text-xs sm:text-sm mt-1">{formErrors.address}</p>}
                   </div>
                 </div>
 
